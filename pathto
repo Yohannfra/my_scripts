@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Just a small utils to print the full path to a specified file
+
+echo $PWD/$1
