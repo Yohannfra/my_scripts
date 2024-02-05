@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# This is a wrapper around gnu screen to open it with a tty device without specifying cli args
+
+SYSTEM=$(uname)
+
+BAUD=$1
+
+if [[ $SYSTEM = "Darwin" ]]; # mac os
+then
+    PORT=$(ls /dev/tty.usbserial-* 2>/dev/null)
+    if [[ -z $PORT ]]; then
+        PORT=$(ls /dev/tty.usbmodem* 2>/dev/null)
+    fi
+else
+    echo "Only for macOS for now"
+    exit 1
+fi
+
+if [[ -z $PORT ]];
+then
+    echo "Port not found"
+    exit 1
+fi
+
+if [[ -z $BAUD ]];
+then
+    # echo "Using default baudrate: 9600"
+    BAUD=9600
+fi
+
+# echo "Port : $PORT"
+# echo "Baud : $BAUD"
+
+screen $PORT $BAUD
