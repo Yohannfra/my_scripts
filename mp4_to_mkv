@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# converts a mp4 file to mkv
+
+filename=$(basename -- "$1")
+extension="${filename##*.}"
+filename="${filename%.*}"
+
+ffmpeg -i $filename.mp4 -vcodec copy -acodec copy $filename.mkv
